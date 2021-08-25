@@ -1,0 +1,36 @@
+hydra:
+  job_logging:
+#    formatters:
+#      simple:
+#        format: '[]'
+    root:
+      handlers: [file, console]  # logging to file only.
+  run:
+    #dir: logs/${dataset}
+    dir: logs/depth=${expression_depth} # /${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+
+day_interval_list: [3, 5, 7, 10, 15]
+min_interval_list: [3, 5, 10, 15, 30]
+max_n_expressions: 10000
+check_n_groups_interval: 10
+expression_depth:  (2, 4)
+from_date: 20160101
+to_date: 20191231
+train_valid12_ratios: (0.8, 0.1, 0.1)
+
+
+data_dir: /home/wangx/synology/factor/users/WangXin
+
+seed: 888 # sacred handles automatic seeding when passed in the config
+
+group_size: 100
+threshold_ratio: 1.05  # at least 5% improvement
+topk: 20
+
+# ray parameters
+init_num_gpus: 4
+init_num_cpus: 32
+pipeline_num_gpus: 1
+pipeline_num_cpus: 8
+
